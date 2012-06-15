@@ -1,0 +1,13 @@
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\bin\Debug\ClipboardPro.exe
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\bin\Debug\ClipboardPro.pdb
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\MainWindow.baml
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\MainWindow.g.cs
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\App.g.cs
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\ClipboardPro_MarkupCompile.cache
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\ClipboardPro.g.resources
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\ClipboardPro.Properties.Resources.resources
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\ClipboardPro.exe
+C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\ClipboardPro.pdb
