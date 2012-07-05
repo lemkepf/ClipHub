@@ -37,6 +37,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Db4objects.Db4o">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\db4o\db4o-8.0\bin\net-4.0\Db4objects.Db4o.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.Linq">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\db4o\db4o-8.0\bin\net-4.0\Db4objects.Db4o.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.NativeQueries">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\db4o\db4o-8.0\bin\net-4.0\Db4objects.Db4o.NativeQueries.dll</HintPath>
+    </Reference>
+    <Reference Include="InputSimulator, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -66,12 +76,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Code\ClipboardHelper.cs" />
-    <Compile Include="Code\Enums.cs" />
-    <Compile Include="Code\Helpers.cs" />
-    <Compile Include="Code\ShellHook.cs" />
-    <Compile Include="Code\Structs.cs" />
-    <Compile Include="Code\User32.cs" />
+    <Compile Include="Code\Helpers\ClipboardHelper.cs" />
+    <Compile Include="Code\DataObject\ClipboardEntry.cs" />
+    <Compile Include="Code\Helpers\Enums.cs" />
+    <Compile Include="Code\Helpers\GlobalHotkeyHelper.cs" />
+    <Compile Include="Code\Helpers\Helpers.cs" />
+    <Compile Include="Code\Helpers\Hotkey.cs" />
+    <Compile Include="Code\Helpers\ShellHook.cs" />
+    <Compile Include="Code\Helpers\Structs.cs" />
+    <Compile Include="Code\Helpers\User32.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -100,6 +113,11 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libs\InputSimulator.dll" />
+    <Content Include="libs\InputSimulator.pdb" />
+    <Resource Include="libs\InputSimulator.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
