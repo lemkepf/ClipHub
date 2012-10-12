@@ -6,11 +6,8 @@ using System.Linq;
 using System.Windows;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Resources;
 using System.Text;
-using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using WpfKlip.Core;
 using WpfKlip.Core.Win;

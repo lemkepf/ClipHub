@@ -8,8 +8,8 @@
     <ProjectGuid>{2F7CBFC5-D300-4682-8C14-8336979A901E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClipboardPro</RootNamespace>
-    <AssemblyName>ClipboardPro</AssemblyName>
+    <RootNamespace>ClipHub</RootNamespace>
+    <AssemblyName>ClipHub</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

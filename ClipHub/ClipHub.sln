@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardPro", "ClipboardPro\ClipboardPro.csproj", "{2F7CBFC5-D300-4682-8C14-8336979A901E}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipHub", "ClipHub\ClipHub.csproj", "{2F7CBFC5-D300-4682-8C14-8336979A901E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
