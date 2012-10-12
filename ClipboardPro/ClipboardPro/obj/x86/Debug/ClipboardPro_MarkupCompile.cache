@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\
+D:\repos\clipboard-capture\ClipboardPro\ClipboardPro\obj\x86\Debug\
 ClipboardPro
 none
 false
 DEBUG;TRACE
-C:\Users\lemkepf\Documents\GitHub\clipboard-capture\ClipboardPro\ClipboardPro\App.xaml
-11151548125
+D:\repos\clipboard-capture\ClipboardPro\ClipboardPro\App.xaml
+31666329439
 2335670216
-14-1419567827
-18-1202415816
-MainWindow.xaml;
+18-885147323
+211982205984
+MainWindow.xaml;SelectMenu.xaml;Assets\TrayIcon.xaml;
 
 False
 
