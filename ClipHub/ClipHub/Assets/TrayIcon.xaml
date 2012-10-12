@@ -4,8 +4,20 @@
 
     <!-- Globally declared notify icon -->
     <tb:TaskbarIcon x:Key="TrayNotificationIcon"
-                  IconSource="/Assets/Icons/Bulb.ico"
-                  ToolTipText="ClipHub - Active" />
+                  IconSource="/Assets/Icons/Computers.ico"
+                  ToolTipText="ClipHub - Active">
+
+        <!-- Set a simple context menu  -->
+        <tb:TaskbarIcon.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Options" />
+                <MenuItem Header="Exit" />
+            </ContextMenu>
+        </tb:TaskbarIcon.ContextMenu>
+
+    </tb:TaskbarIcon>
+    
+    
 
     <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
         <Setter Property="Visibility" Value="Collapsed" />
