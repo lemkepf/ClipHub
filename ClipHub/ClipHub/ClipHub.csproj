@@ -98,6 +98,7 @@
     </ApplicationDefinition>
     <Compile Include="Code\DAO\ClipboardRepository.cs" />
     <Compile Include="Code\DAO\IClipboardRepository.cs" />
+    <Compile Include="Code\Helpers\ExtensionMethods.cs" />
     <Compile Include="Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
     </Compile>

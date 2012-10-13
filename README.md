@@ -1,4 +1,4 @@
-clipboard-capture
+ClipHub
 =================
 
-Capture clipboard and replay it in sequence. 
+A simple clipboard capture tool

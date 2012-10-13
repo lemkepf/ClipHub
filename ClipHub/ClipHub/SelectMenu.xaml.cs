@@ -19,6 +19,8 @@ using ClipboardPro.Code.DAO;
 using MahApps.Metro.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using WpfKlip.Core.Win;
+using WindowsInput;
 
 namespace ClipboardPro
 {
@@ -40,14 +42,9 @@ namespace ClipboardPro
                 this.Hide();
             };
 
-            //clipRepository = new ClipboardRepository();
-
             List<ClipboardEntry> results = App.clipRepository.All<ClipboardEntry>().OrderByDescending(p => p.dateClipped).ToList();
 
             ObservableCollection<ClipboardEntry> obsResults = new ObservableCollection<ClipboardEntry>(results);
-
-            //List<ClipboardEntry> result = App.clipRepository.Where<ClipboardEntry>(d => d.dateClipped).Take(10).ToList();
-            //populate clips
 
             ListClips.DataContext = obsResults;
 
@@ -64,24 +61,22 @@ namespace ClipboardPro
                         this.ListClips.SelectedIndex = 0;
                     break;
                 default:
-                    String searchTerm = this.txtSearch.Text;
-                    if (searchTerm.Length >= 1)
-                    {
-                        //filter
-                        List<ClipboardEntry> results = App.clipRepository.Where<ClipboardEntry>(a => a.clipboardContents.Contains(searchTerm)).OrderByDescending(p => p.dateClipped).ToList();
-
-                        ObservableCollection<ClipboardEntry> obsResults = new ObservableCollection<ClipboardEntry>(results);
-
-                        //List<ClipboardEntry> result = App.clipRepository.Where<ClipboardEntry>(d => d.dateClipped).Take(10).ToList();
-                        //populate clips
-
-                        ListClips.DataContext = obsResults;
-
-
-                    }
-
+                    this.updateListFilter();
                     break;
             }
+        }
+
+        private void updateListFilter()
+        {
+            String searchTerm = this.txtSearch.Text;
+
+            //filter
+            List<ClipboardEntry> results = App.clipRepository.Where<ClipboardEntry>(a => a.clipboardContents.ToLower().Contains(searchTerm.ToLower())).OrderByDescending(p => p.dateClipped).ToList();
+
+            ObservableCollection<ClipboardEntry> obsResults = new ObservableCollection<ClipboardEntry>(results);
+
+            ListClips.DataContext = obsResults;
+
         }
 
         private void ListClips_PreviewKeyDown_1(object sender, KeyEventArgs e)
@@ -90,17 +85,8 @@ namespace ClipboardPro
             {
                 case Key.Enter:
                     //Get selected index, set this clip to the clipboard, close window. 
-                    ClipboardEntry clip = (ClipboardEntry)this.ListClips.SelectedValue;
-                    App.skipNextPaste = true;
-
-                    Clipboard.SetText(clip.clipboardContents, TextDataFormat.Text);
-
-                    this.Hide();
+                    this.setSelectedClip();
                     break;
-                //TODO: handle typing again. 
-                //case Key:
-                //    this.txtSearch.Focus();
-                //    break;
             }
         }
 
@@ -116,17 +102,30 @@ namespace ClipboardPro
 
         void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ClipboardEntry clip = (ClipboardEntry)this.ListClips.SelectedValue;
-            App.skipNextPaste = true;
-
-            Clipboard.SetText(clip.clipboardContents, TextDataFormat.Text);
-
-            this.Hide();
+            this.setSelectedClip();
         }
 
         private void MetroWindow_LostFocus_1(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void setSelectedClip()
+        {
+            ClipboardEntry clip = (ClipboardEntry)this.ListClips.SelectedValue;
+
+            clip.setToClipboard();
+
+            this.Hide();
+
+            if (App.main != null)
+            {
+                //TODO Make this an option to automatically paste, make it a context menu would be a good option too
+                User32.SetActiveWindow(App.main);
+                InputSimulator.SimulateModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
+            }
+
+            
         }
 
     }

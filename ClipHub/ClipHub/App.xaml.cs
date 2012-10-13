@@ -5,7 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-using System;
 using System.Resources;
 using System.Text;
 using Hardcodet.Wpf.TaskbarNotification;
@@ -29,6 +28,8 @@ namespace ClipboardPro
         private TaskbarIcon tb;
         public static Boolean skipNextPaste = false;
         public static IClipboardRepository clipRepository;
+        private DateTime lastClipTime = DateTime.Now;
+        public static IntPtr main; 
 
         public App()
         {
@@ -76,7 +77,10 @@ namespace ClipboardPro
 
         void ch_ClipboardGrabbed(System.Windows.Forms.IDataObject dataObject)
         {
-            if (skipNextPaste)
+            TimeSpan variable =  DateTime.Now - lastClipTime;
+            lastClipTime = DateTime.Now;
+
+            if (skipNextPaste || variable.TotalMilliseconds < 500)
             {
                 skipNextPaste = false;
                 return;
@@ -215,9 +219,10 @@ namespace ClipboardPro
 
             if (id == 72784)
             {
-                //IntPtr main = GetActiveWindowTitle();
+                //Previous Window
+                IntPtr main = GetActiveWindowTitle();
 
-                Console.WriteLine("fired key" + DateTime.Now.ToString());
+                //        InputSimulator.SimulateKeyPress(VirtualKeyCode.BACK);
 
                 SelectMenu select = new SelectMenu();
 

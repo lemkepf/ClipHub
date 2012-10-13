@@ -336,18 +336,19 @@ namespace WpfKlip.Core.Win
 
         bool IsAppWindow(IntPtr hWnd)
         {
-            if ((User32.GetWindowLong(hWnd, (int)GWLIndex.GWL_STYLE) & (int)WindowStyle.WS_SYSMENU) == 0) return false;
+
+            if ((User32.GetWindowLongPtr(hWnd, (int)GWLIndex.GWL_STYLE).ToInt32() & (int)WindowStyle.WS_SYSMENU) == 0) return false;
 
             if (User32.IsWindowVisible(hWnd))
             {
-                if ((User32.GetWindowLong(hWnd, (int)GWLIndex.GWL_EXSTYLE) & (int)WindowStyleEx.WS_EX_TOOLWINDOW) == 0)
+                if ((User32.GetWindowLongPtr(hWnd, (int)GWLIndex.GWL_EXSTYLE).ToInt32() & (int)WindowStyleEx.WS_EX_TOOLWINDOW) == 0)
                 {
                     if (User32.GetParent(hWnd) != null)
                     {
                         IntPtr hwndOwner = User32.GetWindow(hWnd, (int)GetWindowContstants.GW_OWNER);
                         if (hwndOwner != null &&
-                        ((User32.GetWindowLong(hwndOwner, (int)GWLIndex.GWL_STYLE) & ((int)WindowStyle.WS_VISIBLE | (int)WindowStyle.WS_CLIPCHILDREN)) != ((int)WindowStyle.WS_VISIBLE | (int)WindowStyle.WS_CLIPCHILDREN)) ||
-                        (User32.GetWindowLong(hwndOwner, (int)GWLIndex.GWL_EXSTYLE) & (int)WindowStyleEx.WS_EX_TOOLWINDOW) != 0)
+                        ((User32.GetWindowLongPtr(hwndOwner, (int)GWLIndex.GWL_STYLE).ToInt32() & ((int)WindowStyle.WS_VISIBLE | (int)WindowStyle.WS_CLIPCHILDREN)) != ((int)WindowStyle.WS_VISIBLE | (int)WindowStyle.WS_CLIPCHILDREN)) ||
+                        (User32.GetWindowLongPtr(hwndOwner, (int)GWLIndex.GWL_EXSTYLE).ToInt32() & (int)WindowStyleEx.WS_EX_TOOLWINDOW) != 0)
                         {
                             return true;
                         }
