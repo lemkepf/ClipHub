@@ -83,6 +83,16 @@ namespace ClipboardPro
         {
             switch (e.Key)
             {
+                case Key.Up:
+                    if (this.ListClips.SelectedIndex == 0)
+                    {
+                        //set focus to search box
+                        this.txtSearch.Focus();
+                        this.ListClips.SelectedIndex = -1;
+                    }
+
+
+                    break;
                 case Key.Enter:
                     //Get selected index, set this clip to the clipboard, close window. 
                     this.setSelectedClip();
@@ -112,18 +122,21 @@ namespace ClipboardPro
 
         private void setSelectedClip()
         {
+
             ClipboardEntry clip = (ClipboardEntry)this.ListClips.SelectedValue;
 
-            clip.setToClipboard();
-
-            this.Hide();
-
-            if (App.main != null)
+            if (clip != null)
             {
-                //TODO Make this an option to automatically paste, make it a context menu would be a good option too
-                User32.SetActiveWindow(App.main);
-                InputSimulator.SimulateModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
+                clip.setToClipboard();
+
+                this.Hide();
             }
+            //if (App.main != null)
+            //{
+                //TODO Make this an option to automatically paste, make it a context menu would be a good option too
+            //    User32.SetActiveWindow(App.main);
+            //    InputSimulator.SimulateModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
+            //}
 
             
         }
