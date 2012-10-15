@@ -99,12 +99,17 @@
     <Compile Include="Code\DAO\ClipboardRepository.cs" />
     <Compile Include="Code\DAO\IClipboardRepository.cs" />
     <Compile Include="Code\Helpers\ExtensionMethods.cs" />
+    <Compile Include="Code\Helpers\FriendlyTimeDescription.cs" />
     <Compile Include="Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectMenu.xaml.cs">
       <DependentUpon>SelectMenu.xaml</DependentUpon>
     </Compile>
+    <Page Include="Assets\Formatter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,6 +135,14 @@
     <Page Include="Options.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\FontsAndColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SelectMenu.xaml">
       <SubType>Designer</SubType>
@@ -164,8 +177,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
     <Resource Include="Assets\Icons\Bulb.ico" />
     <Resource Include="Assets\Icons\Computers.ico" />
     <Resource Include="Assets\Icons\Error.ico" />

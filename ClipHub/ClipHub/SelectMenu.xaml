@@ -1,28 +1,90 @@
 ﻿<Controls:MetroWindow x:Class="ClipboardPro.SelectMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Select Previous Clips" Height="404" Width="522"
+        Title="Select Previous Clips" Height="400" Width="500"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       WindowStartupLocation="CenterScreen"
                       PreviewKeyUp="MetroWindow_PreviewKeyDown_1"
         >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+                <ResourceDictionary Source="Assets/Formatter.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="Settings" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
     <Grid Margin="0,0,2,173">
         <Grid.Resources>
 
             <DataTemplate x:Key="ClipItemTemplate">
                 <Border BorderThickness="0,0,0,0" BorderBrush="#6FBDE8">
-                    <TextBlock Width="200" Height="25" Margin="4" Text="{Binding clipboardContents}" VerticalAlignment="Center" />
+                    <StackPanel>
+                        <TextBlock Width="350" Height="20" Margin="1" Text="{Binding clipboardContents}" 
+                                   VerticalAlignment="Center"
+                                   FontSize="14"
+                                   FontFamily="{DynamicResource DefaultFont}"
+                                   Foreground="{DynamicResource GrayBrush3}"
+                                   />
+                        <TextBlock Text="{Binding Path=dateClipped, 
+				Converter={StaticResource TimeFormatter}}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Right"
+                                   FontSize="9" Foreground="{DynamicResource GrayBrush6}"/>
+                        
+                    </StackPanel>
                 </Border>
             </DataTemplate>
 
-            <DataTemplate x:Key="DateItemTemplate">
+            <DataTemplate x:Key="ControlsItemTemplate">
                 <Border BorderThickness="0,0,0,0" BorderBrush="#6FBDE8">
-                    <Grid>
+                    <Grid HorizontalAlignment="Right">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32" />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding dateClipped}" VerticalAlignment="Center" Grid.Column="1" />
+                        <Button Grid.Column="0"
+                            		Height="20"
+                            		Width="20"
+                            		VerticalAlignment="Top"
+                               Style="{DynamicResource ChromelessButtonStyle}" 
+                                ToolTip="Pin this clip"
+                                >
+                            <Rectangle Width="10"
+                            			Height="10">
+                                <Rectangle.LayoutTransform>
+                                    <RotateTransform Angle="-45"></RotateTransform>
+                                </Rectangle.LayoutTransform>
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"
+                            					Visual="{StaticResource appbar_pin}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                        </Button>
+                        <Button Grid.Column="1"
+                            		Height="20"
+                            		Width="20"
+                            		VerticalAlignment="Top"
+                                Style="{DynamicResource ChromelessButtonStyle}" >
+                            <Rectangle Width="10"
+                            			Height="10">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"
+                            					Visual="{StaticResource appbar_arrow_right}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                        </Button>
                     </Grid>
 
                 </Border>
@@ -261,7 +323,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ListView PreviewKeyUp="ListClips_PreviewKeyDown_1" Name="ListClips" ItemsSource="{Binding}" ItemContainerStyle="{DynamicResource ListViewItemContainerStyle}" Margin="10,62,10,-162" Grid.ColumnSpan="3"
-                MouseDoubleClick="ListView_MouseDoubleClick"  >
+                MouseDoubleClick="ListView_MouseDoubleClick" 
+                 >
             <ListView.ContextMenu>
                 <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                     <MenuItem Header="Set To Clipboard" Command="{Binding PasteCommand}" />
@@ -274,27 +337,15 @@
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
-                    
                     <GridViewColumn CellTemplate="{StaticResource ClipItemTemplate}" />
-                    <GridViewColumn CellTemplate="{StaticResource DateItemTemplate}" />
+                    <GridViewColumn CellTemplate="{StaticResource ControlsItemTemplate}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox PreviewKeyUp="txtSearch_KeyDown_1" Name="txtSearch" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="492"
+        <TextBox PreviewKeyUp="txtSearch_KeyDown_1" Name="txtSearch" Height="36" Margin="10,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"
                  Controls:TextboxHelper.Watermark="Type your search criteria."
                  Controls:TextboxHelper.ClearTextButton="True" Grid.ColumnSpan="3"
                  FontSize="19"
                  />
     </Grid>
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     </Controls:MetroWindow>

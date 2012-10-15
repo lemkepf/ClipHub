@@ -33,3 +33,8 @@ D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\ClipHub.Properties.Resources.reso
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\ClipHub.csproj.GenerateResource.Cache
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\ClipHub.exe
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\ClipHub.pdb
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Resources\Icons.baml
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Resources\FontsAndColors.baml
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\ClipHub_MarkupCompile.lref
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Assets\Formatter.baml

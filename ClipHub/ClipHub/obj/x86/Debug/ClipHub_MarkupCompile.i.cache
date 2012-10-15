@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\repos\ClipHub\ClipHub\ClipHub\App.xaml
-4482506936
+72027169540
 2335670216
-211681224401
+221085665470
 211718638533
-MainWindow.xaml;Options.xaml;SelectMenu.xaml;Assets\TrayIcon.xaml;
+Assets\Formatter.xaml;MainWindow.xaml;Options.xaml;Resources\FontsAndColors.xaml;Resources\Icons.xaml;SelectMenu.xaml;Assets\TrayIcon.xaml;
 
 False
 

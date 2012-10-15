@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using ClipHub.Code.Helpers;
 using System;
 using System.Diagnostics;
 using System.Windows;
