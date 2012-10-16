@@ -30,9 +30,14 @@ namespace ClipboardPro
     public partial class SelectMenu : MetroWindow
     {
         //IClipboardRepository clipRepository;
+        private static System.Windows.Forms.Timer filterTimer = new System.Windows.Forms.Timer();
 
         public SelectMenu()
         {
+
+            filterTimer.Tick += new EventHandler(FilterTimerProcessor);
+            filterTimer.Interval = 200;
+
             InitializeComponent();
 
             Closing += delegate(object sender, CancelEventArgs e)
@@ -56,12 +61,20 @@ namespace ClipboardPro
             switch (e.Key)
             {
                 case Key.Down:
-                    ListClips.Focus();
                     if (this.ListClips.Items.Count > 0)
+                    {
+                        ListClips.Focus();
                         this.ListClips.SelectedIndex = 0;
+                        var item = ListClips.ItemContainerGenerator.ContainerFromIndex(this.ListClips.SelectedIndex) as ListViewItem;
+                        if (item != null)
+                        {
+                            item.Focus();
+                        }
+                    }
+
                     break;
                 default:
-                    this.updateListFilter();
+
                     break;
             }
         }
@@ -77,6 +90,8 @@ namespace ClipboardPro
 
             ListClips.DataContext = obsResults;
 
+            Console.WriteLine("Filtered " + DateTime.Now.ToLongTimeString());
+
         }
 
         private void ListClips_PreviewKeyDown_1(object sender, KeyEventArgs e)
@@ -87,11 +102,9 @@ namespace ClipboardPro
                     if (this.ListClips.SelectedIndex == 0)
                     {
                         //set focus to search box
-                        this.txtSearch.Focus();
                         this.ListClips.SelectedIndex = -1;
+                        this.txtSearch.Focus();                       
                     }
-
-
                     break;
                 case Key.Enter:
                     //Get selected index, set this clip to the clipboard, close window. 
@@ -133,12 +146,26 @@ namespace ClipboardPro
             }
             //if (App.main != null)
             //{
-                //TODO Make this an option to automatically paste, make it a context menu would be a good option too
+            //TODO Make this an option to automatically paste, make it a context menu would be a good option too
             //    User32.SetActiveWindow(App.main);
             //    InputSimulator.SimulateModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
             //}
 
-            
+
+        }
+
+        private void txtSearch_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            filterTimer.Stop();
+            filterTimer.Start();
+        }
+
+
+        private void FilterTimerProcessor(Object myObject,
+                                                EventArgs myEventArgs)
+        {
+            filterTimer.Stop();
+            updateListFilter();
         }
 
     }
