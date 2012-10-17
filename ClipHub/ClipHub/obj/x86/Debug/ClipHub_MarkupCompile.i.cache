@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\repos\clipboard-capture\ClipHub\ClipHub\obj\x86\Debug\
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\
 ClipHub
 none
 false
 DEBUG;TRACE
-D:\repos\clipboard-capture\ClipHub\ClipHub\App.xaml
-72027169540
+D:\repos\ClipHub\ClipHub\ClipHub\App.xaml
+7-874738619
 2335670216
-22178346098
-21234036999
-Assets\Formatter.xaml;MainWindow.xaml;Options.xaml;Resources\FontsAndColors.xaml;Resources\Icons.xaml;SelectMenu.xaml;Assets\TrayIcon.xaml;
+22-1052192195
+211718638533
+Assets\Formatter.xaml;MainWindow.xaml;Settings.xaml;Resources\FontsAndColors.xaml;Resources\Icons.xaml;SelectMenu.xaml;Assets\TrayIcon.xaml;
 
-True
+False
 

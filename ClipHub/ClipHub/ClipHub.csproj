@@ -100,8 +100,8 @@
     <Compile Include="Code\DAO\IClipboardRepository.cs" />
     <Compile Include="Code\Helpers\ExtensionMethods.cs" />
     <Compile Include="Code\Helpers\FriendlyTimeDescription.cs" />
-    <Compile Include="Options.xaml.cs">
-      <DependentUpon>Options.xaml</DependentUpon>
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectMenu.xaml.cs">
       <DependentUpon>SelectMenu.xaml</DependentUpon>
@@ -132,7 +132,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Options.xaml">
+    <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

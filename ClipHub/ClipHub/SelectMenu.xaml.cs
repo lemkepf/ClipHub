@@ -184,5 +184,22 @@ namespace ClipboardPro
             updateListFilter();
         }
 
+        private void ListClips_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            ClipboardEntry clip = (ClipboardEntry)this.ListClips.SelectedValue;
+
+            if (clip != null)
+            {
+                PopupTxt.Text = clip.clipboardContents;
+                ListPopup.IsOpen = true;
+                ListPopup.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
+
+                ListPopup.PlacementTarget = (UIElement)this.ListClips;
+            }
+
+            
+
+        }
+
     }
 }

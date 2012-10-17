@@ -1,4 +1,4 @@
-﻿<Window x:Class="ClipHub.Options"
+﻿<Window x:Class="ClipHub.Settings"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Options" Height="455" Width="679"

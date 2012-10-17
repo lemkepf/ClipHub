@@ -17,6 +17,8 @@ using Db4objects.Db4o.Linq;
 using ClipboardPro.Code.Models;
 using ClipboardPro.Code.Helpers;
 using ClipboardPro.Code.DAO;
+using System.Windows.Input;
+using ClipHub;
 
 namespace ClipboardPro
 {
@@ -29,7 +31,8 @@ namespace ClipboardPro
         public static Boolean skipNextPaste = false;
         public static IClipboardRepository clipRepository;
         private DateTime lastClipTime = DateTime.Now;
-        public static IntPtr main; 
+        public static IntPtr main;
+        public static RoutedCommand CustomRoutedCommand = new RoutedCommand();
 
         public App()
         {
@@ -47,6 +50,16 @@ namespace ClipboardPro
             tb = (TaskbarIcon)this.FindResource("TrayNotificationIcon");
             //tb = (TaskbarIcon)FindResource("TrayNotificationIcon");
             tb.Visibility = System.Windows.Visibility.Visible;
+
+            CommandBinding binding = new CommandBinding(ApplicationCommands.Close);
+            binding.Executed += contextMenuExecuted;
+            binding.CanExecute += contextMenuCanExecute;
+            tb.ContextMenu.CommandBindings.Add(binding);
+
+            CommandBinding customCommandBinding = new CommandBinding(
+            CustomRoutedCommand, contextMenuExecuted, contextMenuCanExecute);
+
+            tb.ContextMenu.CommandBindings.Add(customCommandBinding);
 
             registerHotKeys();
         }
@@ -263,5 +276,32 @@ namespace ClipboardPro
             int threadid = User32.GetWindowThreadProcessId(hwnd, ref procid);
             return procid;
         }
+
+        private void contextMenuCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private void contextMenuExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if ("Settings" == e.Parameter)
+            {
+                //show options
+                Settings optionsWindow = new Settings();
+
+                optionsWindow.Show();
+
+            }else if ("About" == e.Parameter){
+                //show about
+            }
+            else if (e.Command == ApplicationCommands.Close)
+            {
+                this.Shutdown();
+            }
+            
+        }
+
+        
     }
 }

@@ -16,9 +16,9 @@ namespace ClipHub
     /// <summary>
     /// Interaction logic for Options.xaml
     /// </summary>
-    public partial class Options : Window
+    public partial class Settings : Window
     {
-        public Options()
+        public Settings()
         {
             InitializeComponent();
         }

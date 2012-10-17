@@ -18,12 +18,10 @@ D:\repos\ClipHub\ClipHub\ClipHub\bin\Debug\InputSimulator.xml
 D:\repos\ClipHub\ClipHub\ClipHub\bin\Debug\Db4objects.Db4o.Instrumentation.xml
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\ClipHub.csprojResolveAssemblyReference.cache
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\MainWindow.baml
-D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Options.baml
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\SelectMenu.baml
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Assets\TrayIcon.baml
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\App.baml
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\MainWindow.g.cs
-D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Options.g.cs
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\SelectMenu.g.cs
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\App.g.cs
 D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\ClipHub_Content.g.cs
@@ -78,3 +76,5 @@ D:\repos\clipboard-capture\ClipHub\ClipHub\obj\x86\Debug\Assets\Formatter.baml
 D:\repos\clipboard-capture\ClipHub\ClipHub\obj\x86\Debug\ClipHub.g.resources
 D:\repos\clipboard-capture\ClipHub\ClipHub\obj\x86\Debug\ClipHub.Properties.Resources.resources
 D:\repos\clipboard-capture\ClipHub\ClipHub\obj\x86\Debug\ClipHub.csproj.GenerateResource.Cache
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Settings.baml
+D:\repos\ClipHub\ClipHub\ClipHub\obj\x86\Debug\Settings.g.cs
