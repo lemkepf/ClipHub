@@ -31,6 +31,9 @@ namespace ClipboardPro
     {
         //IClipboardRepository clipRepository;
         private static System.Windows.Forms.Timer filterTimer = new System.Windows.Forms.Timer();
+        private readonly BackgroundWorker worker = new BackgroundWorker();
+        private static ObservableCollection<ClipboardEntry> obsResults;
+        private static String searchTerm;
 
         public SelectMenu()
         {
@@ -54,6 +57,9 @@ namespace ClipboardPro
             ListClips.DataContext = obsResults;
 
             txtSearch.Focus();
+
+            worker.DoWork += worker_updateListFilter;
+            worker.RunWorkerCompleted += worker_updateListFilterCompleted;
         }
 
         private void txtSearch_KeyDown_1(object sender, KeyEventArgs e)
@@ -79,18 +85,28 @@ namespace ClipboardPro
             }
         }
 
-        private void updateListFilter()
+        private void worker_updateListFilter(object sender, DoWorkEventArgs e)
         {
-            String searchTerm = this.txtSearch.Text;
-
+            // run all background tasks here
             //filter
             List<ClipboardEntry> results = App.clipRepository.Where<ClipboardEntry>(a => a.clipboardContents.ToLower().Contains(searchTerm.ToLower())).OrderByDescending(p => p.dateClipped).ToList();
 
-            ObservableCollection<ClipboardEntry> obsResults = new ObservableCollection<ClipboardEntry>(results);
+            obsResults = new ObservableCollection<ClipboardEntry>(results);
 
+        }
+
+        private void worker_updateListFilterCompleted(object sender,
+                                               RunWorkerCompletedEventArgs e)
+        {
+            //update ui once worker complete his work
             ListClips.DataContext = obsResults;
-
             Console.WriteLine("Filtered " + DateTime.Now.ToLongTimeString());
+        }
+
+        private void updateListFilter()
+        {
+            searchTerm = this.txtSearch.Text;
+            this.worker.RunWorkerAsync();
 
         }
 

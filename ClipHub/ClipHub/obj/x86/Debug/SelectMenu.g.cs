@@ -9,7 +9,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using ClipHub.Code.Helpers;
 using MahApps.Metro.Controls;
 using System;
 using System.Diagnostics;
