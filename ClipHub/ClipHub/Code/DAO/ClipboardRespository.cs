@@ -49,12 +49,12 @@ namespace ClipHub.Code.DAO
 
         public List<ClipboardEntry> getAllClipboardentryList()
         {
-            return db.All<ClipboardEntry>().OrderByDescending(p => p.dateClipped).ToList();
+            return db.All<ClipboardEntry>().OrderByDescending(p => p.pinned == true).ThenByDescending(p => p.dateClipped).ToList();
         }
 
         public List<ClipboardEntry> getAllClipboardentryListFilter(String filterText)
         {
-            return db.Where<ClipboardEntry>(a => a.clipboardContents.ToLower().Contains(filterText.ToLower())).OrderByDescending(p => p.dateClipped).ToList();
+            return db.Where<ClipboardEntry>(a => a.clipboardContents.ToLower().Contains(filterText.ToLower())).OrderByDescending(p => p.pinned == true).ThenByDescending(p => p.dateClipped).ToList();
         }
     }
 }

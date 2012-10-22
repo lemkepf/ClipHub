@@ -35,14 +35,17 @@ namespace ClipHub
         private static ObservableCollection<ClipboardEntry> obsResults;
         private static String searchTerm;
 
+        public static RoutedCommand CustomRoutedCommand = new RoutedCommand();
+
         public SelectMenu()
         {
-
-            filterTimer.Tick += new EventHandler(FilterTimerProcessor);
-            filterTimer.Interval = 200;
-
             InitializeComponent();
 
+            //handle filter to only do it every 200ms as they type
+            filterTimer.Tick += new EventHandler(FilterTimerProcessor);
+            filterTimer.Interval = 200;          
+
+            //handle window closing
             Closing += delegate(object sender, CancelEventArgs e)
             {
                 e.Cancel = true;
@@ -50,6 +53,13 @@ namespace ClipHub
                 this.Hide();
             };
 
+            //right click menu binding
+            CommandBinding customCommandBinding = new CommandBinding(
+            CustomRoutedCommand, contextMenuExecuted, contextMenuCanExecute);
+
+            this.ListClips.ContextMenu.CommandBindings.Add(customCommandBinding);
+
+            //bind results
             List<ClipboardEntry> results = App.clipRepository.getAllClipboardentryList();
 
             ObservableCollection<ClipboardEntry> obsResults = new ObservableCollection<ClipboardEntry>(results);
@@ -58,6 +68,7 @@ namespace ClipHub
 
             txtSearch.Focus();
 
+            //worker thread 
             worker.DoWork += worker_updateListFilter;
             worker.RunWorkerCompleted += worker_updateListFilterCompleted;
         }
@@ -89,10 +100,13 @@ namespace ClipHub
         {
             // run all background tasks here
             //filter
-            List<ClipboardEntry> results = App.clipRepository.getAllClipboardentryListFilter(searchTerm);
-
-            obsResults = new ObservableCollection<ClipboardEntry>(results);
-
+            if (String.IsNullOrWhiteSpace(searchTerm)){
+                List<ClipboardEntry> results = App.clipRepository.getAllClipboardentryList();
+                obsResults = new ObservableCollection<ClipboardEntry>(results);
+            }else{
+                List<ClipboardEntry> results = App.clipRepository.getAllClipboardentryListFilter(searchTerm);
+                obsResults = new ObservableCollection<ClipboardEntry>(results);
+            }
         }
 
         private void worker_updateListFilterCompleted(object sender,
@@ -100,7 +114,6 @@ namespace ClipHub
         {
             //update ui once worker complete his work
             ListClips.DataContext = obsResults;
-            Console.WriteLine("Filtered " + DateTime.Now.ToLongTimeString());
         }
 
         private void updateListFilter()
@@ -119,7 +132,7 @@ namespace ClipHub
                     {
                         //set focus to search box
                         this.ListClips.SelectedIndex = -1;
-                        this.txtSearch.Focus();                       
+                        this.txtSearch.Focus();
                     }
                     break;
                 case Key.Enter:
@@ -196,36 +209,97 @@ namespace ClipHub
 
                 ListPopup.PlacementTarget = (UIElement)this.ListClips;
             }
-
-            
-
         }
 
-        private void Show_Context_ForClipMouseDown(object sender, MouseButtonEventArgs e)
+        private void Show_Context_ForClipMouseDown(object sender, RoutedEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+ 
+            Button button = sender as Button;
+
+            ClipboardEntry item = (ClipboardEntry)(sender as FrameworkElement).DataContext;
+
+            int index = this.ListClips.Items.IndexOf(item);
+
+            this.ListClips.SelectedIndex = index;
+
+            ListView clip = (ListView)this.ListClips;
+
+            if (clip != null)
             {
-                Rectangle button = sender as Rectangle;
+                clip.ContextMenu.PlacementTarget = button;
+                clip.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Right;
+                clip.ContextMenu.IsOpen = true;
+            }
+        }
 
-                ClipboardEntry selectedClip = (ClipboardEntry)this.ListClips.SelectedItem;
+        private void Pin_Item_MouseDown(object sender, RoutedEventArgs e)
+        {
+ 
+            Button button = sender as Button;
 
-                //ListViewItem clip = (ListViewItem)this.ListClips.ItemContainerGenerator.ContainerFromItem(selectedClip);
+            ClipboardEntry item = (ClipboardEntry)(sender as FrameworkElement).DataContext;
 
-                ListView clip = (ListView)this.ListClips;
+            int index = this.ListClips.Items.IndexOf(item);
 
-                //ListViewItem clip = (ListViewItem)this.ListClips.Items[selectedIndex];
+            this.ListClips.SelectedIndex = index;
+
+            SetItemPinned(item);
+        }
+
+        private void SetItemPinned(ClipboardEntry item)
+        {
+            if (item.pinned == true)
+            {
+                item.pinned = false;
+            }
+            else
+            {
+                item.pinned = true;
+            }
+
+            App.clipRepository.Save(item);
+
+            this.updateListFilter();
+        }
+
+        
+
+        private void contextMenuCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private void contextMenuExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if ("removeEntry".Equals(e.Parameter))
+            {
+                ClipboardEntry clip = (ClipboardEntry)this.ListClips.SelectedItem;
+                if (clip != null)
+                {
+                    App.clipRepository.Delete(clip);
+                    this.updateListFilter();
+                }
+            }
+            else if ("setClipboard".Equals(e.Parameter))
+            {
+                this.setSelectedClip();
+            }else if ("pinEntry".Equals(e.Parameter))
+            {
+                ClipboardEntry clip = (ClipboardEntry)this.ListClips.SelectedValue;
 
                 if (clip != null)
                 {
-                    clip.ContextMenu.PlacementTarget = button;
-                    clip.ContextMenu.IsOpen = true;
+                    SetItemPinned(clip);
                 }
-
-                //ContextMenu contextMenu = button.ContextMenu;
-                //contextMenu.PlacementTarget = button;
-                //contextMenu.IsOpen = true;
             }
+            else if ("pushToCloud".Equals(e.Parameter))
+            {
+                //TODO
+            }           
         }
+
+
 
     }
 }
