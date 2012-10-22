@@ -17,12 +17,12 @@ using WpfKlip.Core.Win.Enums;
 using Db4objects.Db4o;
 using Db4objects.Db4o.Query;
 using Db4objects.Db4o.Linq;
-using ClipboardPro.Code.Models;
-using ClipboardPro.Code.Helpers;
+using ClipHub.Code.Models;
+using ClipHub.Code.Helpers;
 using WindowsInput;
 using ExtensionMethods;
 
-namespace ClipboardPro
+namespace ClipHub
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

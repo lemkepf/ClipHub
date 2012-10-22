@@ -14,13 +14,13 @@ using WpfKlip.Core.Win.Enums;
 using Db4objects.Db4o;
 using Db4objects.Db4o.Query;
 using Db4objects.Db4o.Linq;
-using ClipboardPro.Code.Models;
-using ClipboardPro.Code.Helpers;
-using ClipboardPro.Code.DAO;
+using ClipHub.Code.Models;
+using ClipHub.Code.Helpers;
+using ClipHub.Code.DAO;
 using System.Windows.Input;
 using ClipHub;
 
-namespace ClipboardPro
+namespace ClipHub
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -31,12 +31,11 @@ namespace ClipboardPro
         public static Boolean skipNextPaste = false;
         public static IClipboardRepository clipRepository;
         private DateTime lastClipTime = DateTime.Now;
-        public static IntPtr main;
         public static RoutedCommand CustomRoutedCommand = new RoutedCommand();
 
         public App()
         {
-            clipRepository = new ClipboardRepository();
+            clipRepository = new ClipboardRespository("clips.db");
 
             InitializeComponent();
 
@@ -99,13 +98,6 @@ namespace ClipboardPro
                 return;
             }
 
-            //using (IObjectContainer db = Db4oEmbedded.OpenFile("test"))
-            //{
-            //    List<ClipboardEntry> result = (from ClipboardEntry p in db
-            //                                   select p).ToList();
-
-            //    Console.WriteLine(result.Count);
-            //}
 
             var formats = dataObject.GetFormats();
 
@@ -113,27 +105,21 @@ namespace ClipboardPro
             {
                 var text = Clipboard.GetText();
 
-                //if (Settings.Default.OmitEmptyStrings && String.IsNullOrEmpty(text))
-                //{
-                //    return;
-                //}
+                if (String.IsNullOrWhiteSpace(text))
+                {
+                    return;
+                }
 
-                //if (Settings.Default.OmitWhitespacesOnlyString && String.IsNullOrEmpty(text.Trim()))
-                //{
-                //    return;
-                //}
-
-                //if (CheckDuplicates(ItemsBox, (obj) => (text as string) == (obj as string)))
-                //    return;
                 var data = Clipboard.GetDataObject();
-                //n = new TextDataLBI(Clipboard.GetDataObject());
 
                 ClipboardEntry newClip = new ClipboardEntry();
                 newClip.clipboardContents = text;
                 newClip.dateClipped = DateTime.Now;
 
-                // accessDb4o
-                clipRepository.Save(newClip);
+                String title = GetActiveWindowTitle();
+                newClip.applicationClippedFrom = title;
+
+                clipRepository.Insert(newClip);
             }
             else if (formats.Contains(DataFormats.FileDrop))
             {
@@ -185,58 +171,14 @@ namespace ClipboardPro
                 //n = new ImageLBI(bitmap);
             }
 
-            //if (n != null)
-            //{
-            //    ItemsBox.Items.Insert(0, n);
-            //    //n.ItemClicked += new ItemCopiedEventHandler(n_ItemClicked);
-            //}
-
-            /* Console.WriteLine("\r\n\r\n");
-
-             for (int i = 0; i < ItemsBox.Items.Count; i++)
-             {
-                 Console.WriteLine("{0}:{1}", i, (ItemsBox.Items[i] as ListBoxItem).Tag);
-             }*/
         }
 
         void gh_GlobalHotkeyFired(int id)
         {
-            if (id == 72783)
-            {
-                //IntPtr main = GetActiveWindowTitle();
 
-                //Console.WriteLine("fired key" + DateTime.Now.ToString());
-                ////mainWindow.ToogleVisibility();
-                //skipNextPaste = false;
-                //if (lastPasteLenght > 0)
-                //{
-                //    //send backspace till it's done
-                //    for (int i = 0; i < lastPasteLenght; i++)
-                //    {
-                //        //System.Windows.Forms.SendKeys.SendWait("{BACKSPACE}");
-                //        InputSimulator.SimulateKeyPress(VirtualKeyCode.BACK);
-
-                //        Console.WriteLine("fired backspace key");
-                //    }
-                //}
-                ////Clipboard.SetText(DateTime.Now.ToString(), TextDataFormat.Text);
-                //Console.WriteLine("prepare sending");
-
-                ////User32.SetActiveWindow(main);
-
-                //InputSimulator.SimulateTextEntry(DateTime.Now.ToString());
-                //Console.WriteLine("sent");
-                //lastPasteLenght = DateTime.Now.ToString().Length;
-                //return;
-            }
-
+            // show selection menu
             if (id == 72784)
             {
-                //Previous Window
-                IntPtr main = GetActiveWindowTitle();
-
-                //        InputSimulator.SimulateKeyPress(VirtualKeyCode.BACK);
-
                 SelectMenu select = new SelectMenu();
 
                 select.Show();
@@ -244,28 +186,16 @@ namespace ClipboardPro
                 return;
             }
 
-            //int itemindex = id - 667;
-
-            //if (itemindex < mainWindow.ItemsBox.Items.Count)
-            //{
-            //    (mainWindow.ItemsBox.Items[itemindex] as DataEnabledListBoxItem).DoMouseCommand(MouseCommand.GetCommandForClick((ClickType)Settings.Default.ItemHotkeyActAs));
-            // }
-
         }
 
-        private IntPtr GetActiveWindowTitle()
+        private String GetActiveWindowTitle()
         {
-            //const int nChars = 256;
-            IntPtr handle = IntPtr.Zero;
-            //StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = IntPtr.Zero;          
             handle = User32.GetForegroundWindow();
 
-            Console.WriteLine(this.GetProcessThreadFromWindow(handle));
-            //if (User32.GetWindowText(handle, Buff, nChars) > 0)
-            //{/
-            //    return Buff.ToString();
-            //}
-            return handle;
+            String title = Helpers.GetWindowText(handle);
+
+            return title;
         }
 
 
@@ -285,14 +215,15 @@ namespace ClipboardPro
 
         private void contextMenuExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if ("Settings" == e.Parameter)
+            if ("Settings".Equals(e.Parameter))
             {
                 //show options
                 Settings optionsWindow = new Settings();
 
                 optionsWindow.Show();
-
-            }else if ("About" == e.Parameter){
+            }
+            else if ("About".Equals(e.Parameter))
+            {
                 //show about
             }
             else if (e.Command == ApplicationCommands.Close)

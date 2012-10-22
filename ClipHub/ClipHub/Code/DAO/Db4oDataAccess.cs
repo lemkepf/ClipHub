@@ -5,13 +5,18 @@ using System.Text;
 using Db4objects.Db4o;
 using Db4objects.Db4o.Query;
 using Db4objects.Db4o.Linq;
-using ClipboardPro.Code.Models;
+using ClipHub.Code.Models;
 
-namespace ClipboardPro.Code.DAO
+namespace ClipHub.Code.DAO
 {
-    public class ClipboardRepository : IClipboardRepository, IDisposable
+    public class Db4oDataAccess : IDataAccess, IDisposable
     {
-        public IObjectContainer db = Db4oEmbedded.OpenFile("test.clips");
+        public IObjectContainer db;
+
+        public Db4oDataAccess(String dbName)
+        {
+            db = Db4oEmbedded.OpenFile(dbName);
+        }
 
         public IQueryable<T> All<T>()
         {

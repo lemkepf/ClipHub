@@ -96,8 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Code\DAO\ClipboardRepository.cs" />
+    <Compile Include="Code\DAO\ClipboardRespository.cs" />
+    <Compile Include="Code\DAO\Db4oDataAccess.cs" />
     <Compile Include="Code\DAO\IClipboardRepository.cs" />
+    <Compile Include="Code\DAO\IDataAccess.cs" />
     <Compile Include="Code\Helpers\ExtensionMethods.cs" />
     <Compile Include="Code\Helpers\FriendlyTimeDescription.cs" />
     <Compile Include="Settings.xaml.cs">

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using System.Runtime.InteropServices;
 
-namespace ClipboardPro.Code.Helpers
+namespace ClipHub.Code.Helpers
 {
     public class Hotkey : IMessageFilter
     {

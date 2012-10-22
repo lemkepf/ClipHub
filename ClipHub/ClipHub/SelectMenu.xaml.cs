@@ -13,23 +13,23 @@ using System.Windows.Shapes;
 using Db4objects.Db4o;
 using Db4objects.Db4o.Query;
 using Db4objects.Db4o.Linq;
-using ClipboardPro.Code.Models;
-using ClipboardPro.Code.Helpers;
-using ClipboardPro.Code.DAO;
+using ClipHub.Code.Models;
+using ClipHub.Code.Helpers;
+using ClipHub.Code.DAO;
 using MahApps.Metro.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WpfKlip.Core.Win;
 using WindowsInput;
 
-namespace ClipboardPro
+namespace ClipHub
 {
     /// <summary>
     /// Interaction logic for SelectMenu.xaml
     /// </summary>
     public partial class SelectMenu : MetroWindow
     {
-        //IClipboardRepository clipRepository;
+        //IDataAccess clipRepository;
         private static System.Windows.Forms.Timer filterTimer = new System.Windows.Forms.Timer();
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private static ObservableCollection<ClipboardEntry> obsResults;
@@ -50,7 +50,7 @@ namespace ClipboardPro
                 this.Hide();
             };
 
-            List<ClipboardEntry> results = App.clipRepository.All<ClipboardEntry>().OrderByDescending(p => p.dateClipped).ToList();
+            List<ClipboardEntry> results = App.clipRepository.getAllClipboardentryList();
 
             ObservableCollection<ClipboardEntry> obsResults = new ObservableCollection<ClipboardEntry>(results);
 
@@ -89,7 +89,7 @@ namespace ClipboardPro
         {
             // run all background tasks here
             //filter
-            List<ClipboardEntry> results = App.clipRepository.Where<ClipboardEntry>(a => a.clipboardContents.ToLower().Contains(searchTerm.ToLower())).OrderByDescending(p => p.dateClipped).ToList();
+            List<ClipboardEntry> results = App.clipRepository.getAllClipboardentryListFilter(searchTerm);
 
             obsResults = new ObservableCollection<ClipboardEntry>(results);
 
@@ -199,6 +199,32 @@ namespace ClipboardPro
 
             
 
+        }
+
+        private void Show_Context_ForClipMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Rectangle button = sender as Rectangle;
+
+                ClipboardEntry selectedClip = (ClipboardEntry)this.ListClips.SelectedItem;
+
+                //ListViewItem clip = (ListViewItem)this.ListClips.ItemContainerGenerator.ContainerFromItem(selectedClip);
+
+                ListView clip = (ListView)this.ListClips;
+
+                //ListViewItem clip = (ListViewItem)this.ListClips.Items[selectedIndex];
+
+                if (clip != null)
+                {
+                    clip.ContextMenu.PlacementTarget = button;
+                    clip.ContextMenu.IsOpen = true;
+                }
+
+                //ContextMenu contextMenu = button.ContextMenu;
+                //contextMenu.PlacementTarget = button;
+                //contextMenu.IsOpen = true;
+            }
         }
 
     }

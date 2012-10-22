@@ -9,9 +9,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using ClipHub.Code.Helpers;
-using ClipboardPro;
-using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro.Controls;
 using System;
 using System.Diagnostics;

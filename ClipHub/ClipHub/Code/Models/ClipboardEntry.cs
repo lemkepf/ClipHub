@@ -3,19 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Db4objects.Db4o.Config.Attributes;
 
-namespace ClipboardPro.Code.Models
+namespace ClipHub.Code.Models
 {
     public class ClipboardEntry
     {
-        public String clipboardContents { get; set; }
-        public DateTime dateClipped { get; set; }
-        public int ID { get; set; }
+        [Indexed]
+        public string mclipboardContents;
 
-        public String clipboardShort()
+        // Declare a Name property of type string:
+        public string clipboardContents
         {
-            return this.clipboardContents.Substring(0, 50);
+            get
+            {
+                return mclipboardContents;
+            }
+            set
+            {
+                mclipboardContents = value;
+            }
         }
+
+        public String getClipboardContents()
+        {
+            return this.clipboardContents;
+        }
+
+        public String applicationClippedFrom { get; set; }
+        public Object dataClipboardContents { get; set; }
+        public DateTime dateClipped { get; set; }
+        public Boolean pinned { get; set; }
+        public int ID { get; set; }
 
         public void setToClipboard()
         {
@@ -23,5 +42,7 @@ namespace ClipboardPro.Code.Models
 
             Clipboard.SetText(this.clipboardContents, TextDataFormat.Text);
         }
+
+
     }
 }
