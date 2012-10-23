@@ -30,6 +30,10 @@ namespace ClipHub.Code.DAO
             {
                 db.Save(item);
             }
+
+            Remote.RemoteStorage rem = new Remote.RemoteStorage();
+
+            rem.addClipEntry(item);
         }
 
         public void Save(ClipboardEntry item)
