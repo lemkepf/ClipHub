@@ -13,7 +13,7 @@ namespace ClipHub.Code.Remote
             using (IServiceClient client = new ServiceStack.ServiceClient.Web.JsonServiceClient("http://localhost:51304/api/json/syncreply/AddClipboardEntry"))
             {
                 ClipboardEntry clipreq = new ClipboardEntry();
-                clipreq.clipboardContents = "test";
+                clipreq.clipboardContents = clip.clipboardContents;
 
                 var request = new AddClipboardEntry();
                 request.clip = clipreq;

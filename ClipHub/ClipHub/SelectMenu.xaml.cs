@@ -71,6 +71,13 @@ namespace ClipHub
             //worker thread 
             worker.DoWork += worker_updateListFilter;
             worker.RunWorkerCompleted += worker_updateListFilterCompleted;
+
+            //string line = null;
+            //while ((line = Console.ReadLine()) != null)
+            //{
+            //    // Send a message to the server
+            //    chat.Invoke("Send", line).Wait();
+            //}
         }
 
         private void txtSearch_KeyDown_1(object sender, KeyEventArgs e)

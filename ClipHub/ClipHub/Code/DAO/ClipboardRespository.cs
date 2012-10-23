@@ -31,9 +31,11 @@ namespace ClipHub.Code.DAO
                 db.Save(item);
             }
 
-            Remote.RemoteStorage rem = new Remote.RemoteStorage();
+            //Remote.RemoteStorage rem = new Remote.RemoteStorage();
 
-            rem.addClipEntry(item);
+            //rem.addClipEntry(item);
+
+            App.clipRemoteProxy.Invoke("clientClipped", item.clipboardContents, item.applicationClippedFrom);
         }
 
         public void Save(ClipboardEntry item)

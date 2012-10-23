@@ -73,6 +73,9 @@
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Common">
       <HintPath>..\packages\ServiceStack.Common.3.9.24\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -81,6 +84,9 @@
     </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\packages\ServiceStack.Text.3.9.24\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR.Client">
+      <HintPath>..\packages\SignalR.Client.0.5.3\lib\net40\SignalR.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

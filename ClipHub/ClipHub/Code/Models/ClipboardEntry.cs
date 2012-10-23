@@ -10,7 +10,7 @@ namespace ClipHub.Code.Models
     public class ClipboardEntry
     {
         [Indexed]
-        public string mclipboardContents;
+        private string mclipboardContents;
 
         // Declare a Name property of type string:
         public string clipboardContents
@@ -31,10 +31,11 @@ namespace ClipHub.Code.Models
         }
 
         public String applicationClippedFrom { get; set; }
-        public Object dataClipboardContents { get; set; }
+        //public Object dataClipboardContents { get; set; }
         public DateTime dateClipped { get; set; }
         public Boolean pinned { get; set; }
-        public int ID { get; set; }
+        public string userId { get; set; }
+        public Boolean blobStored { get; set; }
 
         public void setToClipboard()
         {

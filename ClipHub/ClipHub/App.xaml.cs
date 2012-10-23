@@ -19,6 +19,7 @@ using ClipHub.Code.Helpers;
 using ClipHub.Code.DAO;
 using System.Windows.Input;
 using ClipHub;
+using SignalR.Client.Hubs;
 
 namespace ClipHub
 {
@@ -32,7 +33,8 @@ namespace ClipHub
         public static IClipboardRepository clipRepository;
         private DateTime lastClipTime = DateTime.Now;
         public static RoutedCommand CustomRoutedCommand = new RoutedCommand();
-
+        public static HubConnection hubConnection;
+        public static IHubProxy clipRemoteProxy; 
         public App()
         {
             clipRepository = new ClipboardRespository("clips.db");
@@ -61,6 +63,28 @@ namespace ClipHub
             tb.ContextMenu.CommandBindings.Add(customCommandBinding);
 
             registerHotKeys();
+
+            // Connect to the service
+            hubConnection = new HubConnection("http://localhost:51304/");
+            //hubConnection.Credentials.
+
+            // Create a proxy to the chat service
+            clipRemoteProxy = hubConnection.CreateProxy("clipboardHub");
+
+            // Print the message when it comes in
+            clipRemoteProxy.On<string, string>("newClip", (x, y) =>
+            {
+                gotNewClip(x, y);
+            });
+
+            // Start the connection
+            hubConnection.Start().Wait();
+
+        }
+
+        public void gotNewClip(String clipContents, String applicationClippedFrom)
+        {
+            Console.WriteLine(clipContents);
         }
 
         private void registerHotKeys()
