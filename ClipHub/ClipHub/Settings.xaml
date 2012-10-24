@@ -6,7 +6,13 @@
                       WindowStartupLocation="CenterScreen"
         >
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Left" Height="369" VerticalAlignment="Top" Width="661">
+            <Label Content="Username: " Height="44"/>
+            <TextBox Name="txtUsername" Height="23" TextWrapping="Wrap"/>
+            <Button Content="Authenticate" Click="Button_Click_1"/>
+            <TextBox Name="authKey" Height="23" TextWrapping="Wrap" Text=""/>
+        </StackPanel>
+
     </Grid>
     <Window.Resources>
         <ResourceDictionary>

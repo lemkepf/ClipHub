@@ -123,6 +123,7 @@
     <Compile Include="Code\Helpers\FriendlyTimeDescription.cs" />
     <Compile Include="Code\Remote\Class1.cs" />
     <Compile Include="Code\Remote\RemoteStorage.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>

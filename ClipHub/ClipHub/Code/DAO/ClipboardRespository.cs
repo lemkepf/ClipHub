@@ -35,7 +35,7 @@ namespace ClipHub.Code.DAO
 
             //rem.addClipEntry(item);
 
-            App.clipRemoteProxy.Invoke("clientClipped", item.clipboardContents, item.applicationClippedFrom);
+            App.clipRemoteProxy.Invoke("clientClipped", Properties.Settings.Default.authKey, item.clipboardContents, item.applicationClippedFrom);
         }
 
         public void Save(ClipboardEntry item)

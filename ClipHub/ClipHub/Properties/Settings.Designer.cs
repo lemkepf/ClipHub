@@ -22,5 +22,17 @@ namespace ClipHub.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string authKey {
+            get {
+                return ((string)(this["authKey"]));
+            }
+            set {
+                this["authKey"] = value;
+            }
+        }
     }
 }
