@@ -20,6 +20,7 @@ using ClipHub.Code.DAO;
 using System.Windows.Input;
 using ClipHub;
 using SignalR.Client.Hubs;
+using ClipHub.Code.Remote;
 
 namespace ClipHub
 {
@@ -34,7 +35,8 @@ namespace ClipHub
         private DateTime lastClipTime = DateTime.Now;
         public static RoutedCommand CustomRoutedCommand = new RoutedCommand();
         public static HubConnection hubConnection;
-        public static IHubProxy clipRemoteProxy; 
+        public static IHubProxy clipRemoteProxy;
+        
         public App()
         {
             clipRepository = new ClipboardRespository("clips.db");
@@ -78,7 +80,7 @@ namespace ClipHub
             });
 
             // Start the connection
-            hubConnection.Start().Wait();
+            hubConnection.Start();
 
         }
 
@@ -136,7 +138,7 @@ namespace ClipHub
 
                 var data = Clipboard.GetDataObject();
 
-                ClipboardEntry newClip = new ClipboardEntry();
+                ClipHub.Code.Models.ClipboardEntry newClip = new ClipHub.Code.Models.ClipboardEntry();
                 newClip.clipboardContents = text;
                 newClip.dateClipped = DateTime.Now;
 
