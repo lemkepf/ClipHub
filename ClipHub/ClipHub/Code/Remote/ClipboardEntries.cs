@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace ClipHub.Code.Remote
 {
@@ -17,7 +16,7 @@ namespace ClipHub.Code.Remote
     public class AddClipboardEntryResponse
     {
         public string Result { get; set; }
-        public ResponseStatus ResponseStatus { get; set; } //Where Exceptions get auto-serialized
+        //public ResponseStatus ResponseStatus { get; set; } //Where Exceptions get auto-serialized
     }
 
     public class ClipboardEntry
