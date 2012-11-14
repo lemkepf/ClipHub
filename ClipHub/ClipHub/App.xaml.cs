@@ -19,7 +19,7 @@ using ClipHub.Code.Helpers;
 using ClipHub.Code.DAO;
 using System.Windows.Input;
 using ClipHub;
-using SignalR.Client.Hubs;
+using Microsoft.AspNet.SignalR.Client.Hubs;
 using ClipHub.Code.Remote;
 
 namespace ClipHub
@@ -71,7 +71,7 @@ namespace ClipHub
             //hubConnection.Credentials.
 
             // Create a proxy to the chat service
-            clipRemoteProxy = hubConnection.CreateProxy("clipboardHub");
+            clipRemoteProxy = hubConnection.CreateHubProxy("clipboardHub");
 
             // Print the message when it comes in
             clipRemoteProxy.On<string, string>("newClip", (x, y) =>
